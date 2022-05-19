@@ -36,6 +36,10 @@ function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 }
 
+refs.startBtn.disabled = true;
+refs.inputDate.disabled = true;
+
+
 
 
 let selectedTime = null;
@@ -45,7 +49,7 @@ const options = {
   defaultDate: Date.now(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    if (selectedDates[0] < Date.now()) {
+    if (selectedDates[0] <= Date.now()) {
       Notify.failure('Please choose a date in the future');
       selectedDates[0] = new Date();
     } else {
@@ -73,7 +77,7 @@ class Timer {
       const deltaTime = selectedTime - currentTime;
       const componentsTimer = convertMs(deltaTime);
       this.updateComponentsTimer(componentsTimer);
-      if (deltaTime <= 0) {
+      if (+deltaTime <= +0) {
         this.stopTimer();
       }
     }, 1000);
