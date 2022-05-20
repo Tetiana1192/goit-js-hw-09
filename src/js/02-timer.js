@@ -36,8 +36,7 @@ function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 }
 
-refs.startBtn.disabled = true;
-refs.inputDate.disabled = true;
+
 
 
 
@@ -77,7 +76,7 @@ class Timer {
       const deltaTime = selectedTime - currentTime;
       const componentsTimer = convertMs(deltaTime);
       this.updateComponentsTimer(componentsTimer);
-      if (+deltaTime <= +0) {
+      if (deltaTime <= 1000) {
         this.stopTimer();
       }
     }, 1000);
@@ -97,4 +96,8 @@ class Timer {
 
 const timer = new Timer();
 flatpickr(refs.inputDate, options);
-refs.startBtn.addEventListener('click', () => timer.startTimer());
+refs.startBtn.addEventListener('click', () => {
+  timer.startTimer();
+  refs.startBtn.disabled = true;
+refs.inputDate.disabled = true;
+});
